@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour
@@ -18,9 +19,15 @@ public class PlayerMovment : MonoBehaviour
     public LayerMask whatisground;
     private float moveVolocity;
 
+    [Header("Wall Jump")]
+    private bool isWall;
+    public Transform wallCheck;
+    [SerializeField] private float wallCheckRadius;
+    public LayerMask whatIsWall;
+
     void Start()
     {
-        
+        isWall = true;
         isgournded = true;
         rB2D = GetComponent<Rigidbody2D>();
 
@@ -32,6 +39,8 @@ public class PlayerMovment : MonoBehaviour
     {
        
         isgournded = Physics2D.OverlapCircle(groundcheck.position, groundCheckRadius, whatisground);
+        isWall = Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, whatIsWall);
+
 
         moveVolocity = 0f;
 
@@ -58,12 +67,25 @@ public class PlayerMovment : MonoBehaviour
 
         }
 
+        if(Input.GetKeyDown(KeyCode.Space) && isWall)
+        {
+
+            WallJump();
+
+        }
+
     }
 
     void Jump()
     {
 
         rB2D.velocity = new Vector2(rB2D.velocity.x, jumphight);
+
+    }
+    void WallJump()
+    {
+
+        rB2D.velocity = new Vector2(rB2D.velocity.x, jumphight / 2f);
 
     }
 }
