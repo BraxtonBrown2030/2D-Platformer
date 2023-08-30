@@ -6,16 +6,23 @@ using UnityEngine;
 public class PlayerMovment : MonoBehaviour
 {
     
-    [Header("Player Componts")]
-    private Rigidbody2D ts;
+    [Header("Player movement")]
+    [SerializeField] private float speed;
+    [SerializeField] private float jumphight;
+    private Rigidbody2D rB2D;
 
-    [Header("jumpvalue")]
-    [SerializeField] private int jumpvalue;
+    [Header("ground check")]
+    private bool isgournded;
+    public Transform groundcheck;
+    [SerializeField] private float groundCheckRadius;
+    public LayerMask whatisground;
+    private float moveVolocity;
 
     void Start()
     {
         
-        ts = GetComponent<Rigidbody2D>();
+        isgournded = true;
+        rB2D = GetComponent<Rigidbody2D>();
 
 
     }
@@ -23,18 +30,40 @@ public class PlayerMovment : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Jump();
+       
+        isgournded = Physics2D.OverlapCircle(groundcheck.position, groundCheckRadius, whatisground);
+
+        moveVolocity = 0f;
+
+        if(Input.GetKey(KeyCode.D))
+        {
+
+            moveVolocity = speed;
+
+        }
+
+        if(Input.GetKey(KeyCode.A))
+        {
+
+            moveVolocity = -speed;
+
+        }
+
+        rB2D.velocity = new Vector2(moveVolocity, rB2D.velocity.y);
+
+        if(Input.GetKeyDown(KeyCode.Space) && isgournded)
+        {
+
+            Jump();
+
+        }
+
     }
 
     void Jump()
     {
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-
-            ts.position = new Vector2(transform.position.x, jumpvalue);
-
-        }
+        rB2D.velocity = new Vector2(rB2D.velocity.x, jumphight);
 
     }
 }
