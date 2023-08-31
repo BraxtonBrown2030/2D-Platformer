@@ -50,6 +50,13 @@ public class PlayerMovment : MonoBehaviour
 
         moveVolocity = 0f;
 
+        if(isWall == true || isWallL == true)
+        {
+
+            
+
+        }
+
         if(Input.GetKey(KeyCode.D))
         {
 
@@ -98,7 +105,7 @@ public class PlayerMovment : MonoBehaviour
     }
     void WallJump()
     {
-
+        
         rB2D.velocity = new Vector2(rB2D.velocity.x, jumphight);
 
     }

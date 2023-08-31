@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class PickUps : MonoBehaviour
 {
+
+    public ScriptableObject coin;
+
     // Start is called before the first frame update
     void Start()
     {
         
+        
+
     }
 
     // Update is called once per frame
@@ -19,9 +24,10 @@ public class PickUps : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 
-        if(other.tag == "pickup")
+        if(other.tag == "Player")
         {
 
+            this.gameObject.SetActive(false);
             
 
         }

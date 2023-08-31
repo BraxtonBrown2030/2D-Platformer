@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Single varibles / float Data")]
 public class SoOpenTrigger : ScriptableObject
 {
 
-    public float heaelthVaule;
+    public float value;
 
 
+    
 
 
 }
