@@ -11,6 +11,7 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float jumphight;
     private Rigidbody2D rB2D;
+    public SoOpenTrigger sO;
 
     [Header("ground check")]
     private bool isgournded;
@@ -24,13 +25,17 @@ public class PlayerMovment : MonoBehaviour
     public Transform wallCheck;
     [SerializeField] private float wallCheckRadius;
     public LayerMask whatIsWall;
+    [Header("Wall Jump left")]
+    private bool isWallL;
+    public Transform wallCheckL;
+    [SerializeField] private float wallCheckRadiusL;
+    public LayerMask whatIsWallL;
 
     void Start()
     {
         isWall = true;
         isgournded = true;
         rB2D = GetComponent<Rigidbody2D>();
-
 
     }
 
@@ -40,6 +45,7 @@ public class PlayerMovment : MonoBehaviour
        
         isgournded = Physics2D.OverlapCircle(groundcheck.position, groundCheckRadius, whatisground);
         isWall = Physics2D.OverlapCircle(wallCheck.position, wallCheckRadius, whatIsWall);
+        isWallL =  Physics2D.OverlapCircle(wallCheckL.position, wallCheckRadiusL, whatIsWallL);
 
 
         moveVolocity = 0f;
@@ -74,6 +80,14 @@ public class PlayerMovment : MonoBehaviour
 
         }
 
+        if(Input.GetKeyDown(KeyCode.Space) && isWallL)
+        {
+
+            WallJump();
+
+        }
+
+
     }
 
     void Jump()
@@ -85,7 +99,7 @@ public class PlayerMovment : MonoBehaviour
     void WallJump()
     {
 
-        rB2D.velocity = new Vector2(rB2D.velocity.x, jumphight / 2f);
+        rB2D.velocity = new Vector2(rB2D.velocity.x, jumphight);
 
     }
 }
