@@ -9,6 +9,10 @@ public class PlayerMovment : MonoBehaviour
     
     [Header("Player movement")]
     [SerializeField] private float speed;
+    private Vector3 velocity;
+     public float moveSpeed = 5f;
+    public float jumpForce = 4f;
+    public float gravity = -9.81f;
     [SerializeField] private float jumphight;
     private Rigidbody2D rB2D;
     public SoOpenTrigger sO;
@@ -101,6 +105,7 @@ public class PlayerMovment : MonoBehaviour
     {
 
         rB2D.velocity = new Vector2(rB2D.velocity.x, jumphight);
+        velocity.y = Mathf.Sqrt(jumpForce * -2 * gravity);
 
     }
     void WallJump()
